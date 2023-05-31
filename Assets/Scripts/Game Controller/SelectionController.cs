@@ -16,11 +16,6 @@ public class SelectionController : MonoBehaviour
     public delegate void BlockSelectionChanged(JengaBlock selectedJengaBlock);
     public static event BlockSelectionChanged OnBlockSelectionChanged;
 
-    public SelectionController()
-    {
-        // add events?
-    }
-
     public void Awake()
     {
         selectionCamera = GetComponent<Camera>();

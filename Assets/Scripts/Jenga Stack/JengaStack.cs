@@ -13,12 +13,6 @@ public class JengaStack : MonoBehaviour
     protected int blocksInTower;
     private List<GameObject> blocks = new List<GameObject>();
     private Vector3 transformOffset;
-    //private Vector3 lastTextRotation;
-
-    //public void Awake()
-    //{
-    //    print("Stack AWAKE Materials " + Resources.FindObjectsOfTypeAll(typeof(Material)).Length);
-    //}
 
     public void OnEnable()
     {
@@ -41,10 +35,6 @@ public class JengaStack : MonoBehaviour
                 blocks.Remove(collidingBlock);
                 Destroy(collidingBlock);
             }
-            //else
-            //{
-            //    Debug.Log("Ignore collision with block from different grade");
-            //}
         }
     }
 

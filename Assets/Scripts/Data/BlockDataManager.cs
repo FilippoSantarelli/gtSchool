@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class BlockDataManager 
 {
-    public List<BlockData> blockDataList;
+    //public List<BlockData> blockDataList;
     // dictionary of string (grade) with a list of block data
     protected Dictionary<string, List<BlockData>> blockDataDictionary;
     public Dictionary<string, List<BlockData>> BlockDataDictionary { get { return blockDataDictionary; } }
@@ -19,7 +19,6 @@ public class BlockDataManager
 
     private BlockDataManager()
     {
-        blockDataList = new List<BlockData>();
         blockDataDictionary = new Dictionary<string, List<BlockData>>();
     }
 
@@ -37,6 +36,8 @@ public class BlockDataManager
 
     public void SetData(JsonData jsonData)
     {
+        List<BlockData> blockDataList = new List<BlockData>();
+
         // assign data count
         int dataCount = jsonData.Count;
         for (int i = 0; i < dataCount; i++)
@@ -51,7 +52,7 @@ public class BlockDataManager
         {
             Debug.Log("parsing complete");
 
-            SeparateBlocksByGrades();
+            SeparateBlocksByGrades(blockDataList);
             OnMoldsParsed();
         }
     }
@@ -59,7 +60,7 @@ public class BlockDataManager
     /// <summary>
     /// Goes through all block data to populate a dictionary of <string, List<BlockData>>
     /// </summary>
-    public void SeparateBlocksByGrades()
+    public void SeparateBlocksByGrades(List<BlockData> blockDataList)
     {
         IList<List<BlockData>> groups = blockDataList.GroupBy(x => x.gradeLevel).Select(x => x.ToList()).ToList();
         foreach (List<BlockData> group in groups)
@@ -74,6 +75,8 @@ public class BlockDataManager
             if (!blockDataDictionary.ContainsKey(currentGrade))
                 blockDataDictionary.Add(currentGrade, group);
         }
+
+        blockDataList.Clear();
 
         //List<BlockData> duplicateList = new List<BlockData>();
         //duplicateList.AddRange(blockDataList.OrderBy(x => x.gradeLevel));

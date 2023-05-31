@@ -11,7 +11,6 @@ public class UnityLoader : MonoBehaviour
 {   
     protected GameClientManager gameClientManager;
     public GameClientManager GameClientManager { get { return gameClientManager; } }
-    private UnityWebRequest unityWebRequest;
     private readonly string apiURL = "https://ga1vqcu3o1.execute-api.us-east-1.amazonaws.com/Assessment/stack";
 
     public void Awake()

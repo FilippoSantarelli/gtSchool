@@ -70,12 +70,4 @@ public class JengaBlock : MonoBehaviour
         // enable renderer
         blockRenderer.enabled = true;
     }
-
-    //public void OnDestroy()
-    //{
-        //Destroy the instance
-        //Destroy(blockRenderer.material);
-        //Output the amount of materials to show if the instance was deleted
-        //print("Materials " + Resources.FindObjectsOfTypeAll(typeof(Material)).Length);
-    //}
 }

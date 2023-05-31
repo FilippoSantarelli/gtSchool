@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class CameraController : MonoBehaviour
     // reference to object we are focused on
     protected Transform focusedObject = null;
     private bool movingToFocus = false;
-    private Vector3 focusObjectOffset = new Vector3(1.5f, 7, 2.5f);
+    private Vector3 focusObjectOffset = new Vector3(1.5f, 8, 0);
     // offset of camera to any of the focused objects
     private Vector3 cameraOffset = new Vector3(0, 0, -19);
     private Vector3 previousPosition;
@@ -61,7 +62,7 @@ public class CameraController : MonoBehaviour
 
         focusedObject = stackSpawner.stackTransforms[focusedIndex];
 
-        int xPos = GetXPos();
+        float xPos = GetXPos();
         cameraTargetPosition = new Vector3(xPos, sceneCamera.transform.position.y, sceneCamera.transform.position.z);
         StartCoroutine(LerpPosition(cameraTargetPosition, 1));
     }
@@ -82,14 +83,14 @@ public class CameraController : MonoBehaviour
         transform.position = targetPosition;
     }
 
-    private int GetXPos()
+    private float GetXPos()
     {
         if (focusedIndex == 0)
-            return -10;
+            return -8.5f;
         else if (focusedIndex == 1)
-            return 0;
+            return 1.5f;
         else if (focusedIndex == 2)
-            return 10;
+            return 11.5f;
 
         else
         {
@@ -120,6 +121,10 @@ public class CameraController : MonoBehaviour
 
     private void HandleMouseInput()
     {
+        // ignore mouse click when on UI
+        if (IsMouseOverUI())
+            return;
+
         // store previous position on mouse button down
         if (Input.GetMouseButtonDown(0))
         {
@@ -139,5 +144,10 @@ public class CameraController : MonoBehaviour
 
             previousPosition = sceneCamera.ScreenToViewportPoint(Input.mousePosition);
         }
+    }
+
+    public bool IsMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
     }
 }
